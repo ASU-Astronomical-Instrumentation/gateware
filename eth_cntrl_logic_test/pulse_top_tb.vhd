@@ -14,7 +14,7 @@ architecture test of pulse_top_tb is
 begin
   dut : entity work.pulse_top(struct)
     generic map (width=>width)
-    port map ( clk, reset, en, n_in, M_in, valid, last); -- signal names, order dep.
+    port map ( clk, reset, en, n_in, M_in, valid_out, last_out); -- signal names, order dep.
   
   -- continuous clock
   process 
@@ -27,17 +27,13 @@ begin
 
   process
     begin
-      n_in <= X"00ff";
-      M_in <= X"0004";
+      n_in <= X"00000008";
+      M_in <= X"00000004";
       reset <= '1';
       en <= '0';
       wait for 5 ns;
       reset <= '0';
       en <= '1';
-      --wait for 30 ns;
-      --reset <= '1';
-      --wait for 2 ns;
-      --reset <= '0';
   wait;
   end process;
 
