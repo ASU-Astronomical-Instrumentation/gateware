@@ -6,7 +6,7 @@ entity pulse_top is
     generic (N : integer := 32);
     Port (  clk, rst, enb : in STD_LOGIC; 
             n : in STD_LOGIC_VECTOR(N-1 downto 0);
-            B : in STD_LOGIC_VECTOR(N-1 downto 0);
+            M : in STD_LOGIC_VECTOR(N-1 downto 0);
             valid : out STD_LOGIC;
             last : out std_logic
           );
@@ -23,14 +23,14 @@ begin
         clr => rst,
         enb => enb,
         n => n,
-        Q => count_out,
+        Q => count_out
     );
 
     CMP : entity work.compare(behv) 
     generic map (N => N);
     prot map (
-        A => count_out
-        B => B
+        A => count_out,
+        B => M,
         C => B_gt_A
     );
 
