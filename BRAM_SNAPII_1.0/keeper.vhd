@@ -17,7 +17,7 @@ end keeper;
 
 architecture behv of keeper is
 begin
-    process (clk,enb,D,addr,send)
+    process (clk,D,addr,send)
         variable reg_0x0 : std_logic_vector(data_width-1 downto 0);
         variable reg_0x1 : std_logic_vector(data_width-1 downto 0);
         variable reg_0x2 : std_logic_vector(data_width-1 downto 0);
@@ -39,18 +39,18 @@ begin
             if (sclr='1') then
                 Q <= (others=>'0');
             elsif (send='1') then
-                Q <= reg7 & reg6 & reg5 & reg4 & reg3 & reg2 & reg1 & reg0;
+                Q <= reg_0x7 & reg_0x6 & reg_0x5 & reg_0x4 & reg_0x3 & reg_0x2 & reg_0x1 & reg_0x0;
             else
                 Q <= (others=>'0');
                 case ADDR is
-                    when X"0" =>  reg_0x0 <= D;
-                    when X"1" =>  reg_0x1 <= D;
-                    when X"2" =>  reg_0x2 <= D;
-                    when X"3" =>  reg_0x3 <= D;
-                    when X"4" =>  reg_0x4 <= D;
-                    when X"5" =>  reg_0x5 <= D;
-                    when X"6" =>  reg_0x6 <= D;
-                    when X"7" =>  reg_0x7 <= D;
+                    when X"0" =>  reg_0x0 := D;
+                    when X"1" =>  reg_0x1 := D;
+                    when X"2" =>  reg_0x2 := D;
+                    when X"3" =>  reg_0x3 := D;
+                    when X"4" =>  reg_0x4 := D;
+                    when X"5" =>  reg_0x5 := D;
+                    when X"6" =>  reg_0x6 := D;
+                    when X"7" =>  reg_0x7 := D;
                     --when X"8" =>  reg_0x8 <= ;
                     --when X"9" =>  reg_0x9 <= ;
                     --when X"a" =>  reg_0xA <= ;
@@ -59,9 +59,10 @@ begin
                     --when X"d" =>  reg_0xD <= ;
                     --when X"e" =>  reg_0xE <= ;
                     --when X"f" =>  reg_0xF <= ;
-                    when others => reg0 <= X"deadbeef";
+                    when others => reg_0x0 := X"deadbeef";
                 end case;
             end if;
         end if;
     end process;
 end behv;
+
