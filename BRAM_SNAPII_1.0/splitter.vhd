@@ -1,6 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use iee.numeric_std.all;
+use ieee.numeric_std.all;
 
 entity keeper is 
     generic( slots : integer := 8;
@@ -25,19 +25,21 @@ architecture behv of keeper is
     alias D6 : std_logic_vector(data_width-1 downto 0) is D((data_width*7)-1 downto data_width*6);
     alias D7 : std_logic_vector(data_width-1 downto 0) is D((data_width*8)-1 downto data_width*7);
 begin 
-    process (clk,enb,D,addr,send)
+    process (clk,D,sel)
     begin
         if (clk'event and clk='1') then
         case SEL is 
-            when X"0" => D <= D0;
-            when X"1" => D <= D1;
-            when X"2" => D <= D2;
-            when X"3" => D <= D3;
-            when X"4" => D <= D4;
-            when X"5" => D <= D5;
-            when X"6" => D <= D6;
-            when X"7" => D <= D7;
-            when others =>  <= X"deadbeef";
+            when X"0" =>    Q <= D0;
+            when X"1" =>    Q <= D1;
+            when X"2" =>    Q <= D2;
+            when X"3" =>    Q <= D3;
+            when X"4" =>    Q <= D4;
+            when X"5" =>    Q <= D5;
+            when X"6" =>    Q <= D6;
+            when X"7" =>    Q <= D7;
+            when others =>  Q <= X"deadbeef";
+        end case;
         end if;
     end process;
 end behv;
+
