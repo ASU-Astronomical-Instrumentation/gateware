@@ -23,9 +23,14 @@ entity BRAM_SNAPII_v1_0_S00_AXI is
         gpo   : out std_logic_vector(N-1 downto 0);
         read  : in std_logic_vector(M-1 downto 0);
         write : out std_logic_vector(M-1 downto 0);
-        -- 4x 1b Signal out
+        -- User input Ports
         inA : out std_logic;
         inB : out std_logic;
+        inC : out std_logic;
+        inD : out std_logic;
+
+        vec_in1 : out std_logic_vector(8-1 downto 0);
+        
         count : out std_logic_vector(N-1 downto 0);
         done : out std_logic;
         
@@ -409,6 +414,11 @@ begin
        gpo <= slv_reg0(C_S_AXI_DATA_WIDTH-1 downto C_S_AXI_DATA_WIDTH-N);
        inA <= slv_reg1(30); -- clear count value 
        inB <= slv_reg1(29);
+       inC <= slv_reg1(28); -- clear count value 
+       inD <= slv_reg1(27);
+       vec_in1 <= slv_reg1(26 downto 26-8+1);
+       
+       
        write <= slv_reg3(C_S_AXI_DATA_WIDTH-1 downto C_S_AXI_DATA_WIDTH-M);
        count <= dat;
        done <= hold; --holding max count flag (done writing values to bream)

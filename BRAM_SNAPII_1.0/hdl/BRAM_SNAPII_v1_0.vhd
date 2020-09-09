@@ -27,6 +27,9 @@ entity BRAM_SNAPII_v1_0 is
         -- 4x 1b Signal out
         inA : out std_logic;
         inB : out std_logic;
+        inC : out std_logic;
+        inD : out std_logic;
+        vec_in1 : out std_logic_vector(8-1 downto 0);
         count : out std_logic_vector(N-1 downto 0);
         done : out std_logic;
 		-- User ports ends
@@ -78,6 +81,9 @@ architecture arch_imp of BRAM_SNAPII_v1_0 is
         -- 4x 1b Signal out
         inA : out std_logic;
         inB : out std_logic;
+        inC : out std_logic;
+        inD : out std_logic;
+        vec_in1 : out std_logic_vector(8-1 downto 0);
         done : out std_logic;
 		S_AXI_ACLK	: in std_logic;
 		S_AXI_ARESETN	: in std_logic;
@@ -121,6 +127,9 @@ BRAM_SNAPII_v1_0_S00_AXI_inst : BRAM_SNAPII_v1_0_S00_AXI
  	    gpo => gpo,
 	    inA => inA,
   	    inB => inB,
+  	    inC => inC,
+  	    inD => inD,
+  	    vec_in1 => vec_in1,
 	    count => count,
 	    done => done,
 		S_AXI_ACLK	=> s00_axi_aclk,
@@ -151,3 +160,4 @@ BRAM_SNAPII_v1_0_S00_AXI_inst : BRAM_SNAPII_v1_0_S00_AXI
 	-- User logic ends
 
 end arch_imp;
+
