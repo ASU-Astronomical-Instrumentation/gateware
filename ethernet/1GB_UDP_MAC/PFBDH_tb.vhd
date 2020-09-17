@@ -63,7 +63,8 @@ begin
 		begin	
 			if(bramrdy='1') then	
 				rready <= '1';
-				if (read_counter >= 1024) then
+				raddr <= read_counter;
+				if (read_counter >= 1024-1) then
 					rready <= '0';
 					if (done = '1') then
 						read_counter <= (others=> '0');
