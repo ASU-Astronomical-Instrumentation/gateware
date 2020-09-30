@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity growing_avg is 
     generic(         N : integer := 16;
-              MAX_AVGS : integer := 16;  -- must be base 2
+              MAX_AVGS : integer := 6;  -- must be base 2
              SUM_WIDTH : integer := 128  -- Upper limit for possible number of averages (= S_W^2 - N)
     );
     port(
@@ -15,22 +15,22 @@ entity growing_avg is
 end growing_avg;
 
 architecture behv of growing_avg is 
-    signal sum  : signed(SUM_WIDTH-1 downto 0);
-    signal sum_out  : signed(SUM_WIDTH-1 downto 0);
+    signal sum  : unsigned(SUM_WIDTH-1 downto 0);
+    signal sum_out  : unsigned(SUM_WIDTH-1 downto 0);
     signal AVGS : unsigned(SUM_WIDTH-1 downto 0);
     signal result : std_logic_vector(N-1 downto 0);
 begin 
     
-    acc : process 
+    acc : process(clk)
     begin 
         if (clk'event and clk='1') then
-            if (AVGS <= MAX_AVGS) then
-                sum <= sum + signed((SUM_WIDTH-1 downto x'length => '0') & x);
+            if (AVGS < 2**MAX_AVGS) then
+                sum <= sum + unsigned((SUM_WIDTH-1 downto x'length => '0') & x);
                 AVGS <= AVGS + 1;
             else 
                 AVGS <= (others => '0');
                 sum <= (others => '0');
-                sum_out <= SUM;
+                sum_out <= sum;
             end if;
         end if;
     end process;
