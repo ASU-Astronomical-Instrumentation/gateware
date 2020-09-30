@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity accumulator is 
+entity growing_avg is 
     generic(         N : integer := 16;
               MAX_AVGS : integer := 16;  -- must be base 2
              SUM_WIDTH : integer := 128  -- Upper limit for possible number of averages (= S_W^2 - N)
@@ -12,9 +12,9 @@ entity accumulator is
           x : in std_logic_vector(N-1 downto 0);
           y : out std_logic_vector(N-1 downto 0)
     );
-end accumulator;
+end growing_avg;
 
-architecture behv of accumulator is 
+architecture behv of growing_avg is 
     signal sum  : signed(SUM_WIDTH-1 downto 0);
     signal sum_out  : signed(SUM_WIDTH-1 downto 0);
     signal AVGS : unsigned(SUM_WIDTH-1 downto 0);
