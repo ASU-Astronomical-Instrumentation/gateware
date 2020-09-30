@@ -18,7 +18,7 @@ architecture test of avg_tb is
 	signal  inp_data : std_logic_vector(N-1 downto 0);
 
 begin 
-	dut : entity work.accumulator(behv)
+	dut : entity work.growing_avg(behv)
 		port map( 
                     clk,
                     x,
