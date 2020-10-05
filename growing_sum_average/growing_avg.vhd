@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity growing_avg is 
     generic(         N : integer := 16;
-                N_AVGS : integer := 7;  -- Total Averages = 2^N_AVGS
+                N_AVGS : integer := 1;  -- Total Averages = 2^N_AVGS
              SUM_WIDTH : integer := 128  -- Upper limit for possible number of averages (= S_W^2 - N)
     );
     port(
@@ -27,7 +27,7 @@ begin
         if (clk'event and clk='1') then   
                 if (adds = 0) then
                     sum <=  first_val + unsigned((SUM_WIDTH-1 downto x'length => '0') & x);
-                    adds <= X"00000000000000000000000000000001" ; 
+                    adds <= (SUM_WIDTH-1 downto 1 => '0') & '1'; 
                 elsif (adds < 2**N_AVGS -1) then -- continue accumulation until max average # is reached
                     sum <= sum + unsigned((SUM_WIDTH-1 downto x'length => '0') & x); -- sum = sum + x
                     adds <= adds + 1;   
