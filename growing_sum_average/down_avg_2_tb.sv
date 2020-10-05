@@ -7,15 +7,18 @@ module down_avg_2_tb();
 
     localparam N = 16;
     logic [N-1:0] x, y;
+    logic [2:0] N_AVGS_in;
     logic clk;
 
     growing_avg uut(
         .clk(clk),
         .x(x),
+        .N_AVGS_in(N_AVGS_in),
         .y(y)
         );
         
     initial begin
+        N_AVGS_in = 1;
         x = 16'b0;
         @ (posedge clk);  
         x = 16'd10;
@@ -27,10 +30,14 @@ module down_avg_2_tb();
         @ (posedge clk);
        
    
-            
-        for (int i=0; i<1024;i++) begin
-            x=i;
-            @ (posedge clk);        
+        for(int j=1; j<=7; j++) begin    
+            N_AVGS_in = j;
+            x=0;
+            @ (posedge clk); 
+            for (int i=0; i<1024;i++) begin
+                x=i;
+                @ (posedge clk);        
+            end
         end
 end
 //        @ (posedge clk);
