@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity growing_avg is 
     generic(         N : integer := 16;
-                N_AVGS : integer := 1;  -- Total Averages = 2^N_AVGS
+                N_AVGS : integer := 1;  -- Total Averages = 2^N_AVGS -1
              SUM_WIDTH : integer := 128  -- Upper limit for possible number of averages (= S_W^2 - N)
     );
     port(
@@ -39,6 +39,7 @@ begin
                 end if;
         end if;   
     end process;
+
     -- synthesized with lut, not a end path for next FF. May rise issues in critical timing path.
     result <= std_logic_vector(sum_out(N+to_integer(unsigned(N_AVGS_in))-1 downto to_integer(unsigned(N_AVGS_in)))); -- divide and slice
     y <= result;
