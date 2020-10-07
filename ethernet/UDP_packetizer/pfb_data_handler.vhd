@@ -4,8 +4,7 @@ use ieee.numeric_std.all;
 
 entity pfbDH is 
       generic( 	N : integer := 82;
-		        AVGS : integer := 18;
-	            ROMLEN : integer := 1024 ); 
+	            ROMLEN : integer := 3*1024 ); 
 	port( 
 		wclk    : in std_logic;
 		rclk    : in std_logic;
@@ -25,11 +24,13 @@ architecture behv of pfbDH is
     type ROM is array(0 to ROMLEN) of std_logic_vector(N-1 downto 0); 
     signal TABLE : ROM;--  = (others => (others => 0)); 
     signal counter : unsigned(9 downto 0);
-    signal rw  : std_logic; 
+    signal rw  : std_logic; -- rw = reading from bram, ~rw = writing to bram
 begin 
-    process(wclk,rw) 
+
+
+    writeto : process(wclk,rw) 
     begin 
-        if rising_edge(wclk) then 
+        if (wclk'event and wclk='1') then 
             if (rw='0') then
                 if (to_integer(counter) > ROMLEN-1 ) then
                     counter <= (others => '0');
@@ -41,11 +42,12 @@ begin
             end if;
         end if;
     end process;	
+
 	
-    process(rclk,rw)
+    readfrom: process(rclk,rw)
         variable read : integer; 
     begin
-        if rising_edge(rclk) then
+        if (rclk'event and rclk='1') then
             done <= '0'; 
             if (rw= '1') then
                 bramrdy <= '1';
@@ -63,5 +65,7 @@ begin
                 rdata <= (others => '0');                
             end if;
         end if;
-    end process;	
+    end process;
+    
+    
 end behv;
