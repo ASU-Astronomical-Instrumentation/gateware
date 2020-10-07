@@ -24,6 +24,7 @@ module down_avg_2_tb();
         N_AVGS_in = 1;
         valid=0;
         #20 
+        valid=1;
         @(posedge clk); 
 
         //---------------------------------------------------------
@@ -31,7 +32,7 @@ module down_avg_2_tb();
         //  simple test with 4 values; avg by 2x
         //---------------------------------------------------------
 
-        valid=1;
+        
         x = 16'b0;
         @(posedge clk);  
         x = 16'd10;
