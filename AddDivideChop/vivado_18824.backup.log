@@ -1,0 +1,127 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Wed Sep 30 15:13:49 2020
+# Process ID: 18824
+# Current directory: /home/ugrad/repo/gateware/AddDivideChop
+# Command line: vivado
+# Log file: /home/ugrad/repo/gateware/AddDivideChop/vivado.log
+# Journal file: /home/ugrad/repo/gateware/AddDivideChop/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project average_ip /home/ugrad/repo/gateware/AddDivideChop/average_ip -part xc7z020clg400-1
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2018.3/data/ip'.
+create_project: Time (s): cpu = 00:00:13 ; elapsed = 00:00:05 . Memory (MB): peak = 6428.863 ; gain = 56.367 ; free physical = 141 ; free virtual = 13731
+set_property board_part www.digilentinc.com:pynq-z1:part0:1.0 [current_project]
+set_property target_language VHDL [current_project]
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -scan_for_includes {/home/ugrad/repo/gateware/DOWNAVG/AVGDOWN_1024nrev_i.vhd /home/ugrad/repo/gateware/DOWNAVG/AVGDOWNrev_i.vhd /home/ugrad/repo/gateware/DOWNAVG/DOWNAVG_tb.sv /home/ugrad/repo/gateware/DOWNAVG/AVGDOWN_4nrev_i.vhd}
+import_files -fileset sim_1 {/home/ugrad/repo/gateware/DOWNAVG/AVGDOWN_1024nrev_i.vhd /home/ugrad/repo/gateware/DOWNAVG/AVGDOWNrev_i.vhd /home/ugrad/repo/gateware/DOWNAVG/DOWNAVG_tb.sv /home/ugrad/repo/gateware/DOWNAVG/AVGDOWN_4nrev_i.vhd}
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+set_property top down_avg_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+update_compile_order -fileset sim_1
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'down_avg_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj down_avg_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/DOWNAVG_tb.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module down_avg_tb
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+xvhdl --incr --relax -prj down_avg_tb_vhdl.prj
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/AVGDOWNrev_i.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'AVGDOWNrev_i'
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 5f11f351e3dd4061af9b37bbeab77811 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot down_avg_tb_behav xil_defaultlib.down_avg_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-3823] variable 'valid' might have multiple concurrent drivers [/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/DOWNAVG_tb.sv:19]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or '/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'down_avg_tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj down_avg_tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/DOWNAVG_tb.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module down_avg_tb
+xvhdl --incr --relax -prj down_avg_tb_vhdl.prj
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto 5f11f351e3dd4061af9b37bbeab77811 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot down_avg_tb_behav xil_defaultlib.down_avg_tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling architecture behv of entity xil_defaultlib.AVGDOWNrev_i [avgdownrev_i_default]
+Compiling module xil_defaultlib.down_avg_tb
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot down_avg_tb_behav
+
+****** Webtalk v2018.3 (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim/xsim.dir/down_avg_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Wed Sep 30 15:29:00 2020...
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "down_avg_tb_behav -key {Behavioral:sim_1:Functional:down_avg_tb} -tclbatch {down_avg_tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source down_avg_tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+ERROR: [Wavedata 42-31] Couldn't write waveform viewer preferences file /home/ugrad/.Xilinx/Vivado/2018.3/waveform/wv.ini: cannot open file.
+ERROR: [Wavedata 42-31] Couldn't write waveform viewer preferences file /home/ugrad/.Xilinx/Vivado/2018.3/waveform/wv.ini: cannot open file.
+ERROR: [Wavedata 42-31] Couldn't write waveform viewer preferences file /home/ugrad/.Xilinx/Vivado/2018.3/waveform/wv.ini: cannot open file.
+ERROR: [Common 17-39] 'add_wave' failed due to earlier errors.
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'down_avg_tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:12 ; elapsed = 00:00:09 . Memory (MB): peak = 6601.316 ; gain = 98.488 ; free physical = 144 ; free virtual = 13683
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Wed Sep 30 15:29:20 2020...

@@ -1,0 +1,2 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/AddDivideChop/growing_avg.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'growing_avg'

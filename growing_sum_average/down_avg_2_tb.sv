@@ -15,7 +15,7 @@ module down_avg_2_tb();
         .valid(valid),
         .x(x),
         .N_AVGS_in(N_AVGS_in),
-        .new_dat(new_dat)
+        .new_dat(new_dat),
         .y(y)
         );
         

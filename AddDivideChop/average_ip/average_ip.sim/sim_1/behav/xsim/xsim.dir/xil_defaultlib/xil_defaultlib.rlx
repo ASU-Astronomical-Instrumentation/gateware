@@ -1,0 +1,11 @@
+0.6
+2018.3
+Dec  6 2018
+23:39:36
+/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.sim/sim_1/behav/xsim/glbl.v,1544155481,verilog,,,,glbl,,,,,,,,
+/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/AddDivideChop/growing_avg.vhd,1601913418,vhdl,,,,growing_avg,,,,,,,,
+/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/AVGDOWN_1024nrev_i.vhd,1601307055,vhdl,,,,avgdown_1024nrev_i,,,,,,,,
+/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/AVGDOWN_4nrev_i.vhd,1601307055,vhdl,/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/AVGDOWN_1024nrev_i.vhd,,,avgdown_4nrev_i,,,,,,,,
+/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/AVGDOWNrev_i.vhd,1601307055,vhdl,/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/AVGDOWN_4nrev_i.vhd,,,avgdownrev_i,,,,,,,,
+/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/imports/DOWNAVG/DOWNAVG_tb.sv,1601506159,systemVerilog,,,,down_avg_tb,,,,,,,,
+/home/ugrad/repo/gateware/AddDivideChop/average_ip/average_ip.srcs/sim_1/new/down_avg_2_tb.sv,1601662784,systemVerilog,,,,down_avg_2_tb,,,,,,,,

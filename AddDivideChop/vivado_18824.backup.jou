@@ -1,0 +1,31 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Wed Sep 30 15:13:49 2020
+# Process ID: 18824
+# Current directory: /home/ugrad/repo/gateware/AddDivideChop
+# Command line: vivado
+# Log file: /home/ugrad/repo/gateware/AddDivideChop/vivado.log
+# Journal file: /home/ugrad/repo/gateware/AddDivideChop/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project average_ip /home/ugrad/repo/gateware/AddDivideChop/average_ip -part xc7z020clg400-1
+set_property board_part www.digilentinc.com:pynq-z1:part0:1.0 [current_project]
+set_property target_language VHDL [current_project]
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -scan_for_includes {/home/ugrad/repo/gateware/DOWNAVG/AVGDOWN_1024nrev_i.vhd /home/ugrad/repo/gateware/DOWNAVG/AVGDOWNrev_i.vhd /home/ugrad/repo/gateware/DOWNAVG/DOWNAVG_tb.sv /home/ugrad/repo/gateware/DOWNAVG/AVGDOWN_4nrev_i.vhd}
+import_files -fileset sim_1 {/home/ugrad/repo/gateware/DOWNAVG/AVGDOWN_1024nrev_i.vhd /home/ugrad/repo/gateware/DOWNAVG/AVGDOWNrev_i.vhd /home/ugrad/repo/gateware/DOWNAVG/DOWNAVG_tb.sv /home/ugrad/repo/gateware/DOWNAVG/AVGDOWN_4nrev_i.vhd}
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top down_avg_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+launch_simulation
+launch_simulation
+source down_avg_tb.tcl
+close_sim
