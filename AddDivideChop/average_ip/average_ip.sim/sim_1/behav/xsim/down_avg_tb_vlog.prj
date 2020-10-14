@@ -1,9 +1,0 @@
-# compile verilog/system verilog design source files
-sv xil_defaultlib  \
-"../../../../average_ip.srcs/sim_1/imports/DOWNAVG/DOWNAVG_tb.sv" \
-
-# compile glbl module
-verilog xil_defaultlib "glbl.v"
-
-# Do not sort compile order
-nosort

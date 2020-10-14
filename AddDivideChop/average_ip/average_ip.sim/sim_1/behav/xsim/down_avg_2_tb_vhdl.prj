@@ -1,6 +1,0 @@
-# compile vhdl design source files
-vhdl xil_defaultlib  \
-"../../../../average_ip.srcs/sim_1/imports/AddDivideChop/growing_avg.vhd" \
-
-# Do not sort compile order
-nosort

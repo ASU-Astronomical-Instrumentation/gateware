@@ -1,7 +1,0 @@
-Running: xsim.dir/down_avg_2_tb_behav/xsimk -simmode gui -wdb down_avg_2_tb_behav.wdb -simrunnum 0 -socket 41109
-Design successfully loaded
-Design Loading Memory Usage: 42832 KB (Peak: 42832 KB)
-Design Loading CPU Usage: 10 ms
-Simulation completed
-Simulation Memory Usage: 124568 KB (Peak: 190104 KB)
-Simulation CPU Usage: 20 ms
