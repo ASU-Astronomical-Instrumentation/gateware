@@ -7,11 +7,15 @@ module n_bin_collection_tb();
 
     localparam BINS = 4;
     localparam N = 16;
-    logic [BINS-1:0] [N-1:0] x, y;
+    localparam SUM_WIDTH = 128;
+    logic [BINS-1:0] [SUM_WIDTH-1:0] y;
     logic [N-1:0] in_data;
     logic clk, valid, areset_n;
 
-    N_bin_collection uut(
+    N_bin_collection
+        #(.N(N),
+        .SUM_WIDTH(SUM_WIDTH)
+        uut(
         .clk(clk),
         .areset_n(areset_n),
         .in_data(in_data),
