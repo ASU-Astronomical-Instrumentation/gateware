@@ -6,7 +6,7 @@ Description: bin averaging wrapper
 `timescale 1ns/1ns 
 //`default_nettype none
 
-module N_bin_avg #(
+module N_bin_avg_wrapper #(
             parameter N = 16,
             parameter N_AVGS = 7, // -- Total Averages = 2^N_AVGS
             parameter SUM_WIDTH = 128,
