@@ -15,8 +15,9 @@ module N_bin_collection #(
         (
             input wire clk, areset_n,
             input wire fft_valid,
-            input logic [N-1:0] in_data,
-            output logic [BINS-1:0] [N-1:0] out_data
+            input wire [N-1:0] in_data,
+            output logic [BINS-1:0] [N-1:0] out_data,
+            output logic output_valid
         );
         
     logic [31:0] bin_num;
@@ -97,20 +98,26 @@ module N_bin_collection #(
         if (~areset_n) begin
             out_data <= 'd0;
             collect_data <= 'd0;
+            output_valid <=1'b0;
         end
         else begin  
             case(next_state)
                 IDLE: begin
                     out_data <= 'd0;
                     collect_data <= 'd0;
+                    output_valid <= 1'b1;
                 end
                 COLLECT: begin
                     collect_data[bin_num] <= in_data_d1;
                 end
                 SEND: begin
                     out_data <= collect_data;
+                    output_valid <= 1'b1;
                 end
                 default: begin
+                    out_data <= 'd0;
+                    collect_data <= 'd0;
+                    output_valid <=1'b0;
                 end
             endcase
         end //end: else

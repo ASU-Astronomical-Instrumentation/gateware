@@ -3,19 +3,24 @@
 `timescale 1ns/1ns 
 `default_nettype none
 
-module n_bin_collection_tb();
+module bin_collection_wrapper_tb();
 
     localparam BINS = 4;
     localparam N = 16;
     localparam SUM_WIDTH = 128;
-    logic [BINS-1:0] [SUM_WIDTH-1:0] y;
+    localparam N_AVGS = 7;
+    logic [BINS-1:0] [N-1:0] x;
+    logic [BINS-1:0] [N-1:0] y;
     logic [N-1:0] in_data;
     logic clk, valid, areset_n;
 
-    N_bin_collection
-        #(.N(N),
-        .SUM_WIDTH(SUM_WIDTH)
-        uut(
+    N_bin_avg_wrapper
+        #(
+        .N(N),
+        .N_AVGS(N_AVGS),
+        .SUM_WIDTH(SUM_WIDTH),
+        .BINS(BINS)
+        ) uut(
         .clk(clk),
         .areset_n(areset_n),
         .in_data(in_data),

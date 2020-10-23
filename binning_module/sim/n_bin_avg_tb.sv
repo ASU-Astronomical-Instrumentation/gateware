@@ -6,7 +6,9 @@
 module n_bin_avg_tb();
 
     localparam N = 16;
-    logic [3:0] [N-1:0] x, y;
+    localparam SUM_WIDTH = 128;
+    logic [3:0] [SUM_WIDTH-1:0] y;
+    logic [3:0] [N-1:0] x;
     logic clk, valid;
 
     N_bin_avg uut(
