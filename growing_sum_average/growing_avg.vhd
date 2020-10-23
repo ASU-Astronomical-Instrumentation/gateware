@@ -19,45 +19,30 @@ end growing_avg;
 
 architecture behv of growing_avg is 
     signal sum  : unsigned(SUM_WIDTH-1 downto 0); 
-    signal sum_out  : unsigned(SUM_WIDTH-1 downto 0); -- init signal for sim
     signal first_val  : unsigned(SUM_WIDTH-1 downto 0);
     signal adds : unsigned(SUM_WIDTH-1 downto 0); -- number of additons performed
-    signal result : std_logic_vector(N-1 downto 0);
 begin 
     
     acc : process(clk, valid, N_AVGS_in) --accumulation
     begin 
         if (clk'event and clk='1') then  
-                new_dat <='0'; 
-                if (valid='1') then
-                    if (adds = 0) then
-                        sum <=  first_val + unsigned((SUM_WIDTH-1 downto x'length => '0') & x);
-                        adds <= (SUM_WIDTH-1 downto 1 => '0') & '1'; -- (0 => '1', others =>'0')
-                    elsif (adds < 2**(to_integer(unsigned(N_AVGS_in))) -1) then -- continue accumulation until max average # is reached
-                        sum <= sum + unsigned((SUM_WIDTH-1 downto x'length => '0') & x); -- sum = sum + x
-                        adds <= adds + 1;   
-                    else    
-                        adds <= (others => '0');
-                        first_val <= unsigned((SUM_WIDTH-1 downto x'length => '0') & x);
-                        sum_out <= sum;
-                        new_dat <= '1';
-                    end if;
-                else 
-                        sum_out <= (others => '0');
-                        sum <= (others => '0');
-                        adds <= (others => '0');
-                        first_val <= (others => '0');
+            new_dat <='0'; 
+            y <= (others => '0'); -- only output new data when new data is valid   
+            if (valid='1') then
+                if (adds = 0) then
+                    sum <=  first_val + unsigned((SUM_WIDTH-1 downto x'length => '0') & x);
+                    adds <= (SUM_WIDTH-1 downto 1 => '0') & '1'; -- (0 => '1', others =>'0')
+                elsif (adds < 2**(to_integer(unsigned(N_AVGS_in))) -1) then -- continue accumulation until max average # is reached
+                    sum <= sum + unsigned((SUM_WIDTH-1 downto x'length => '0') & x); -- sum = sum + x
+                    adds <= adds + 1;   
+                else    
+                    adds <= (others => '0');
+                    first_val <= unsigned((SUM_WIDTH-1 downto x'length => '0') & x);
+                    new_dat <= '1';
+                    -- output --
+                    y <= std_logic_vector(sum(N+to_integer(unsigned(N_AVGS_in))-1 downto to_integer(unsigned(N_AVGS_in)))); -- unsgined divide and slice
                 end if;
+            end if;
         end if;   
     end process;
-
-    -- synthesized with lut, not a end path for next FF. May rise issues in critical timing path.
-    div : process(clk, sum_out)  
-    begin
-        if (clk'event and clk='1') then
-            result <= std_logic_vector(sum_out(N+to_integer(unsigned(N_AVGS_in))-1 downto to_integer(unsigned(N_AVGS_in)))); -- divide and slice
-            y <= result;          
-        end if;
-    end process;
-
 end behv;

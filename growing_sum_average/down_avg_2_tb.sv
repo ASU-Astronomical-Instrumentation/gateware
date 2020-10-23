@@ -42,6 +42,8 @@ module down_avg_2_tb();
         @(posedge clk);
         x = 16'd20;
         @(posedge clk);
+	    valid=0;
+	    @(posedge clk);
        
         //---------------------------------------------------------
         //                       Test 2
@@ -52,9 +54,16 @@ module down_avg_2_tb();
             N_AVGS_in = j;
             x=0;
             @ (posedge clk); 
-            for (int i=0; i<1024;i++) begin
-                x=i;
-                @ (posedge clk);        
+	    @ (posedge clk); 
+	    @ (posedge clk); 
+            for (int i=1; i<1024;i++) begin
+		valid = 0;
+                x=0;
+		@(posedge clk);
+		@(posedge clk);
+		valid = 1;
+                x=i; 
+		@(posedge clk); 
             end
         end
 
