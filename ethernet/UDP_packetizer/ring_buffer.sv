@@ -18,13 +18,13 @@ ring_buffer dut(
         .rst(rst),
 
         .wr_en(wr_en),
-        .wr_data(wdata),
+        .wr_data(wr_data),
 
         .rd_en(rd_en),
         .rd_valid(rd_valid),
-        .rd_data(rdata),
+        .rd_data(rd_data),
 
-        .emptied(.emptied),
+        .emptied(emptied),
         .empty_next(empty_next),
 
         .filled(filled),

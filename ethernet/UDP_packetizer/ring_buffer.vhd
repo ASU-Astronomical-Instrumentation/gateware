@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity ring_buffer is 
       generic( 	
         RAM_WIDTH : natural := 8;
-        RAM_DEPTH : natural := 1024
+        RAM_DEPTH : natural := 1024 );
     port( 
         wclk    : in std_logic;
         rclk    : in std_logic;
@@ -17,7 +17,7 @@ entity ring_buffer is
 
         -- Read Port
         rd_en : in std_logic;
-        rd_valid : in std_logic;
+        rd_valid : out std_logic;
         rd_data : out std_logic_vector(8-1 downto 0);
 
         -- Flags
@@ -32,7 +32,7 @@ end ring_buffer;
 
 architecture behavior of ring_buffer is 
     type ram_type is array(0 to RAM_DEPTH-1) of std_logic_vector(7 downto 0); 
-    signal table : ram_type;
+    signal ram : ram_type;
 
     subtype index_type is integer range ram_type'range;
     signal head : index_type;
@@ -52,8 +52,8 @@ architecture behavior of ring_buffer is
         end if;
     end procedure;
 begin 
-    empty <= empty_i;
-    full <= full_i;
+    emptied <= empty_i;
+    filled <= full_i;
     fill_count <= fill_count_i;
     
     -- Set the flags
@@ -64,7 +64,7 @@ begin
 
     update_head : process(wclk)
     begin 
-        if (clk'event and clk='1')
+        if (wclk'event and wclk='1') then
             if rst='1' then
                 head <= 0;
             else 
@@ -77,7 +77,7 @@ begin
 
     update_tail : process(rclk)
     begin 
-        if (clk'event and clk='1')
+        if (rclk'event and rclk='1') then
             if rst='1' then 
                 tail <= 0;
                 rd_valid <= '0';
@@ -93,7 +93,7 @@ begin
 
     write_ram : process(wclk)
     begin
-        if (wclk'event and wclk='1')
+        if (wclk'event and wclk='1') then
             ram(head) <= wr_data;
         end if;
     end process;
