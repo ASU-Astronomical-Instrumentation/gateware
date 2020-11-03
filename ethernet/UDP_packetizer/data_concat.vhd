@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity pfbDH is 
+entity data_to_bytes is 
         generic( 	N_channels : integer := 4;
                     N : integer := 17;          
         ); 
@@ -11,10 +11,10 @@ entity pfbDH is
         x   : in array(0 to N_channels-1) of std_logic_vector(N-1 downto 0);
         y   : out array(0 to N_channels*N/8 -1) of std_logic_vector(7 downto 0)
 	);
-end pfbDH;
+end data_to_bytes;
 
 
-architecture behv of pfbDH is 
+architecture behv of data_to_bytes is 
     signal counter : unsigned(9 downto 0);
     signal large_x_vec : std_logic_vector(N*N_channels-1 downto 0)
 begin 
