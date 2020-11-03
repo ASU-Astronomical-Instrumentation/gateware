@@ -78,7 +78,7 @@ begin
     update_tail : process(rclk)
     begin 
         if (rclk'event and rclk='1') then
-            if rst='1' then 
+            if rst='1' or empty_i='1' then 
                 tail <= 0;
                 rd_valid <= '0';
             else 
@@ -114,4 +114,5 @@ begin
             fill_count_i <= head - tail;
         end if;
     end process;
+
 end behavior;

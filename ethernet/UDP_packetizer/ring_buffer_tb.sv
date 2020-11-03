@@ -3,12 +3,12 @@
 `timescale 1ns/1ns 
 `default_nettype none
 
-module PFBDH_tb();
+module ring_buffer_tb();
 
 localparam N = 8;
-logic [N-1:0] x, y;
-logic   wclk, rclk, rst, wr_en, wr_data,
-        rd_en, rd_valid, rd_data, emptied,
+logic [N-1:0] wr_data, rd_data;
+logic   wclk, rclk, rst, wr_en,
+        rd_en, rd_valid, emptied,
         empty_next, filled, full_next,
         fill_counter;
 
