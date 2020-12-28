@@ -1,3 +1,4 @@
+-- https://vhdlwhiz.com/ring-buffer-fifo/
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -5,7 +6,7 @@ use ieee.numeric_std.all;
 entity ring_buffer is 
       generic( 	
         RAM_WIDTH : natural := 8;
-        RAM_DEPTH : natural := 1024 );
+        RAM_DEPTH : natural := 32 );
     port( 
         wclk    : in std_logic;
         rclk    : in std_logic;
@@ -13,12 +14,12 @@ entity ring_buffer is
 
         -- Write Port
         wr_en : in std_logic;
-        wr_data : in std_logic_vector(8-1 downto 0);
+        wr_data : in std_logic_vector(RAM_WIDTH-1 downto 0);
 
         -- Read Port
         rd_en : in std_logic;
         rd_valid : out std_logic;
-        rd_data : out std_logic_vector(8-1 downto 0);
+        rd_data : out std_logic_vector(RAM_WIDTH-1 downto 0);
 
         -- Flags
         emptied, empty_next : out std_logic;
