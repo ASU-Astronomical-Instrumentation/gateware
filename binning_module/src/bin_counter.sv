@@ -1,5 +1,4 @@
 
-
 module bin_counter #(
 	parameter BINS = 512	)
 	(
