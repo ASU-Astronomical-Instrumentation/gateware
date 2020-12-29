@@ -4,12 +4,12 @@ use ieee.numeric_std.all;
 
 entity data_to_bytes is 
         generic( 	N_channels : integer := 4;
-                    N : integer := 17;          
+                    N : integer := 18;          
         ); 
 	port( 
-		clk    : in std_logic;
+		clk,rst  : in std_logic;
         x   : in array(0 to N_channels-1) of std_logic_vector(N-1 downto 0);
-        y   : out array(0 to N_channels*N/8 -1) of std_logic_vector(7 downto 0)
+        y   : out array(0 to N_channels*N/8 -1) of std_logic_vector(8-1 downto 0)
 	);
 end data_to_bytes;
 
@@ -20,12 +20,14 @@ architecture behv of data_to_bytes is
 begin 
 
 
-    combine : process(clk) 
+    combine : process(clk,rst) 
     begin 
         if (clk'event and clk='1') then 
+            if (rst='1') then
+                y <= (others => (others => '0'));
             large_x_vec <= x(0) & x(1) & x(2) & x(3);
             for i in (0 to N_channels*N/8 -1) loop
-                y(i) <= large_x_vec(i*8+7 downto i*8);
+                y(i) <= large_x_vec(i*N+7 downto i*N);
             end loop;
         end if;
     end process;	
