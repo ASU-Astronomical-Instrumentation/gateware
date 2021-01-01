@@ -1,0 +1,3 @@
+[submodule "ethernet/FPGA_GigabitTx"]
+	path = ethernet/FPGA_GigabitTx
+	url = https://github.com/ASU-Astronomical-Instrumentation/FPGA_GigabitTx
