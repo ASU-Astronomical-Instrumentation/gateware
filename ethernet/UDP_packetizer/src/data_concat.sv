@@ -6,8 +6,8 @@ module data_concat #(
     parameter BW_out = 8
 ) (
     input wire clk,srst_n,
-    input logic [BW-1:0] x[N_PRL],
-    output logic [BW_out-1:0] y[BW*N_PRL/BW_out] 
+    input logic [N_PRL-1:0][BW-1:0] x,
+    output logic [BW*N_PRL/BW_out-1:0][BW_out-1:0] y 
 );
 
 logic [BW*N_PRL-1:0] largex;
@@ -18,8 +18,8 @@ always_ff @ (posedge clk or negedge srst_n) begin
         largex <= 'b0;
     else
         for (i=0; i<N_PRL; i=i+1)
-	        largex[BW*(3-i) +: BW] = x[i];
+	        largex[BW*i +: BW] = x[i];
     	foreach (y[j]) 
-            y[j]=largex[BW_out*(BW*N_PRL/BW_out-1-j) +: BW_out];
+            y[j]=largex[BW_out*j +: BW_out];
 end
 endmodule

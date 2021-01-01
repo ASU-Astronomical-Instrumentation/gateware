@@ -4,8 +4,8 @@
 module data_concat_tb();
     
     logic clk, srst_n;
-    logic [17:0] x [4];
-    logic [7:0]  y [9];
+    logic [3:0][17:0] x ;
+    logic [8:0][7:0]  y ;
 
 data_concat uut(
     .clk(clk),
