@@ -1,5 +1,7 @@
 /**********************************************************
 7 October 2020
+1 Jan 2021
+K. Chamberlin R. Stephenson
 Description: bin averaging wrapper 
 ***********************************************************/
 
@@ -8,20 +10,22 @@ Description: bin averaging wrapper
 
 module N_bin_avg_wrapper #(
             parameter N = 16,
+            parameter N_out = 8,
             parameter N_AVGS = 7, // -- Total Averages = 2^N_AVGS
-            parameter SUM_WIDTH = 128,
+            parameter SUM_WIDTH = 32,
             parameter BINS = 4
         )
         (
             input wire clk, arest_n,
-            input wire fft_valid,
+            input wire fft_ready,
             input wire [BINS-1:0] [N-1:0] in_data,
-            output logic [BINS-1:0] [N-1:0] out_data
+            output logic valid_out,
+            output logic [BINS*N/N_out-1:0] [N_out-1:0] out_data,
         );
 
     //******************* internal registers ********************
-    logic [BINS-1:0] [SUM_WIDTH-1:0] fft_array;
-    logic [2:0] N_AVGS_in;
+    logic [BINS-1:0] [SUM_WIDTH-1:0] fft_spec;
+    logic i_bin_c_valid;
     
     //**********************************************************
     //          GENERATE PARALLEL AVERAGING MODULES
@@ -34,11 +38,12 @@ module N_bin_avg_wrapper #(
                     .N(N),
                     .N_AVGS(N_AVGS),
                     .SUM_WIDTH(SUM_WIDTH)
-                    ) u_growing_avg
-                    (.clk(clk),
+                    ) 
+                    u_growing_avg (
+                    .clk(clk),
                     .valid(valid),
-                    .x(fft_array[i]),
-                    .N_AVGS_in(N_AVGS_in),
+                    .x(fft_spec[i]),
+                    .N_AVGS_in(N_AVGS),
                     .new_data(),
                     .y(out_data[i])
                     );
@@ -56,10 +61,28 @@ module N_bin_avg_wrapper #(
         ) u_N_bin_collection
         (.clk(clk),
         .arest_n(arest_n),
-        .fft_valid(fft_valid),
+        .fft_ready(fft_ready),
         .in_data(in_data),
-        .out_data(fft_array),
-        .output_valid(valid)
+        .out_data(fft_spec),
+        .output_valid(i_bin_c_valid)
         );
+
+
+/***********************************************************
+*               RE-ARRANGE DATA WIDTH FOR ETHERNET
+***********************************************************/
+    data_concat #(
+        .BW(SUM_WIDTH),
+        .N_PRL(BINS),
+        .N_out(BW_out)
+    )
+    u_data_concat (
+        .clk(clk),
+        .arest_n(srst_n),
+        .data_ready(i_bin_c_valid),
+        .data_valid(valid_out),
+        .x(fft_spec),
+        .y(out_data)
+    );
         
 endmodule
