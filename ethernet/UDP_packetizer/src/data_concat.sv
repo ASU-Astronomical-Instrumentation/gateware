@@ -18,7 +18,8 @@ always_ff @ (posedge clk or negedge srst_n) begin
         largex <= 'b0;
     else
         for (i=0; i<N_PRL; i=i+1)
-	    largex[BW*(3-i) +: BW] = x[i];
-    	foreach (y[j]) y[j]=largex[BW_out*(BW*N_PRL/BW_out-1-j) +: BW_out];
+	        largex[BW*(3-i) +: BW] = x[i];
+    	foreach (y[j]) 
+            y[j]=largex[BW_out*(BW*N_PRL/BW_out-1-j) +: BW_out];
 end
 endmodule
