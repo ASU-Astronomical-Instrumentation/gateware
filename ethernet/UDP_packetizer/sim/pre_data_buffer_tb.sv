@@ -1,5 +1,3 @@
-// Kathryn Chamberlin, Ryan Stephenson
-// 30 Sept 2020
 `timescale 1ns/1ns 
 `default_nettype none
 
