@@ -18,6 +18,6 @@ __TODO__ *before* hardware testing and merging branch to dev
 * look at byte_data.vhd really hard a little more
 
 ## Data Pipeline HDL
-* look where to smush IQ and make it so
 * test bench for pre_data_buffer.vhd
 * test bench for n_bin_avg_wrapper.sv
+* look where to smush IQ and make it so

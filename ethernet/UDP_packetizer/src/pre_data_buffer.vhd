@@ -32,12 +32,11 @@ entity pre_data_buffer is -- (FIFO)
         sclr_n          : in std_logic;   
         data_in         : in bus_array(0 to data_points)(N-1 downto 0);
         wready, rready  : in std_logic;
-
+        
         data_out        : out bus_array(0 to data_points)(N-1 downto 0);
         empty           : out std_logic;
         full            : out std_logic;
         wvalid,rvalid   : out std_logic;
-
         fill_count      : out integer range N_specs downto 0
     );
 end pre_data_buffer;
@@ -69,7 +68,6 @@ begin
                     rvalid<='1';
                     if (rready='1') then
                         data_buffer(fill_count_i) <= data_in;
-                        
                         count_i <= count_i+1;
                     else
                         NULL;

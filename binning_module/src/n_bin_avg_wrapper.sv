@@ -74,7 +74,7 @@ module N_bin_avg_wrapper #(
     data_concat #(
         .BW(SUM_WIDTH),
         .N_PRL(BINS),
-        .N_out(BW_out)
+        .BW_out(N_out)
     )
     u_data_concat (
         .clk(clk),
