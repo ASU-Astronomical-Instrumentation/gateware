@@ -1,17 +1,19 @@
 `timescale 1ns/1ns 
 `default_nettype none
+/*
+interface garbage();
+import bus_multiplexer_pkg;
 
-
-
+bus_array dat;
+endinterface
+*/
 module pre_data_buffer_tb();
-
-import bus_multiplexer_pkg::*;
 
 localparam N = 8;
 localparam data_points=5;
 localparam N_specs=3;
-logic [N:0] data_in [data_points];
-logic [N:0] data_out [data_points];
+logic [0:data_points-1][N:0] data_in ;
+logic [0:data_points-1][N:0] data_out ;
 logic   data_clk, eth_clk, rst, sclr_n,
         wready, rready, empty,
         full, wvalid, rvalid;

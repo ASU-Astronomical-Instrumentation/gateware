@@ -17,8 +17,8 @@ end pre_data_buffer_tb;
 
 architecture testbench of pre_data_buffer_tb is 
     constant N   : integer := 8; -- input data width
-    constant data_points  : integer := 9;  -- BINS*PFB_bitwidth/8 "data poin
-    constant N_specs : integer := 4 -- 2^Number of saved spectrums in table 
+    constant data_points  : integer := 4;  -- BINS*PFB_bitwidth/8 "data poin
+    constant N_specs : integer := 4; -- 2^Number of saved spectrums in table 
 
     signal data_clk         : std_logic;
     signal eth_clk          : std_logic;
@@ -92,24 +92,28 @@ end process;
 --  TESTBENCH STARTS HERE   
 --
 ------------------------------------------------------------------------------------
-process 
+main : process 
 
 begin 
-    sclr_n <= '0';
+    sclr_n <= '0'; wvalid <='0'; rvalid <='0';
     wready <= '0';
     rready <= '0';
-    data_in<= (X"c0",X"ff",X"ee",X"0f",X"f0");
+    data_in<= (X"00",X"00",X"00",X"00",X"00");
     wait for 25 ns;
-
+    
+    data_in<= (X"c0",X"ff",X"ee",X"0f",X"f0");
     sclr_n <= '1';
     wait for 20 ns;
 
     rready <= '1';
     wait for 15 ns;
-    
+
     rready <= '0';
     wready <= '1';
     data_in<= (X"00",X"00",X"00",X"00",X"00");
+    wait for 10 ns;
+    
+    wready <= '0';
 
     wait;
 end process;
