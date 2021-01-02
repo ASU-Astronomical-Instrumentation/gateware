@@ -37,7 +37,7 @@ entity pre_data_buffer is -- (FIFO)
         empty           : out std_logic;
         full            : out std_logic;
         wvalid,rvalid   : out std_logic;
-        fill_count      : out integer range N_specs downto 0
+        fill_count      : out std_logic_vector(N_specs downto 0)
     );
 end pre_data_buffer;
 
@@ -66,7 +66,7 @@ begin
 
     empty <= empty_i;
     full <= full_i;
-    fill_count <= 0 when sclr_n='0' else fill_count_i;
+    fill_count <= (others=>'0') when sclr_n='0' else std_logic_vector(to_unsigned(fill_count_i,fill_count'length));
 
     empty_i <= '1' when fill_count_i = 0 else '0';
     full_i <= '1' when fill_count_i >= N_specs else '0';
@@ -117,12 +117,12 @@ begin
     --     end if;
     -- end process;
 
-    update_fill_count : process(head,tail)
+    update_fill_count : process(head_i,tail_i)
     begin
-        if head < tail then 
-            fill_count_i <= head - tail + N_specs;
+        if head_i < tail_i then 
+            fill_count_i <= head_i - tail_i + N_specs;
         else 
-            fill_count_i <= head - tail;
+            fill_count_i <= head_i - tail_i;
         end if;
     end process;
 end behavioral;

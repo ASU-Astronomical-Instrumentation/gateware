@@ -1,17 +1,21 @@
 `timescale 1ns/1ns 
 `default_nettype none
 
+
+
 module pre_data_buffer_tb();
+
+import bus_multiplexer_pkg::*;
 
 localparam N = 8;
 localparam data_points=5;
 localparam N_specs=3;
-logic [N-1:0] data_in [data_points];
-logic [N-1:0] data_out [data_points];
+logic [N:0] data_in [data_points];
+logic [N:0] data_out [data_points];
 logic   data_clk, eth_clk, rst, sclr_n,
-        rready, rready, empty,
-        full, wvalid, rvalid,
-        fill_count;
+        wready, rready, empty,
+        full, wvalid, rvalid;
+reg signed [N_specs:0] fill_count;
 
 pre_data_buffer #(
         .N(N),
