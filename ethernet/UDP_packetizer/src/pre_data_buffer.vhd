@@ -65,10 +65,11 @@ begin
                 data_buffer <= (others=>(others=>(others=>'0')));
                 fill_count_i <= 0;
             else
-                if (rready='1') then 
-                    if (full_i='0') then
+                if (full_i='0') then 
+                    rvalid<='1';
+                    if (rready='1') then
                         data_buffer(fill_count_i) <= data_in;
-                        rvalid<='1';
+                        
                         count_i <= count_i+1;
                     else
                         NULL;
@@ -81,10 +82,10 @@ begin
     write_spec :  process(eth_clk) 
     begin
         if (eth_clk'event and eth_clk='1') then 
-            if (wready='1') then 
-                if (empty_i='0') then
+            if (empty_i='0') then 
+                wvalid <='1';
+                if (wready='1') then
                     data_out <= data_buffer(fill_count_i);
-                    wvalid <='1';
                     count_i<= count_i -1;
                 else 
                     NULL;
