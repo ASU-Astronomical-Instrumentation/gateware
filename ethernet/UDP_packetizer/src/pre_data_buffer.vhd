@@ -71,11 +71,13 @@ begin
     empty_i <= '1' when fill_count_i = 0 else '0';
     full_i <= '1' when fill_count_i >= N_specs else '0';
 
-    read_spec : process(data_clk) 
+    read_spec : process(data_clk,sclr_n) 
     begin
         if (data_clk'event and data_clk='1') then 
             if (sclr_n='0') then 
                 data_buffer <= (others=>(others=>(others=>'0')));
+                head_i<=0;
+                --data_out <= (others=>(others=>'0'));
             else
                 if (full_i='0') then 
                     rvalid<='1';
@@ -90,16 +92,21 @@ begin
         end if;
     end process;
 
-    write_spec :  process(eth_clk) 
+    write_spec :  process(eth_clk,sclr_n) 
     begin
         if (eth_clk'event and eth_clk='1') then 
-            if (empty_i='0') then 
-                wvalid <='1';
-                if (wready='1') then
-                    data_out <= data_buffer(tail_i);
-                    incr(tail_i);
-                else 
-                    NULL;
+            if (sclr_n='0') then
+                data_out <= (others=>(others=>'0'));
+                tail_i<=0;
+            else 
+                if (empty_i='0') then 
+                    wvalid <='1';
+                    if (wready='1') then
+                        data_out <= data_buffer(tail_i);
+                        incr(tail_i);
+                    else 
+                        NULL;
+                    end if;
                 end if;
             end if;
         end if;
@@ -117,12 +124,18 @@ begin
     --     end if;
     -- end process;
 
-    update_fill_count : process(head_i,tail_i)
+    update_fill_count : process(head_i,tail_i,sclr_n)
     begin
-        if head_i < tail_i then 
-            fill_count_i <= head_i - tail_i + N_specs;
+        if (sclr_n='0') then
+            fill_count_i<=0;
+            -- head_i<=0;
+            -- tail_i<=0;
         else 
-            fill_count_i <= head_i - tail_i;
+            if head_i < tail_i then 
+                fill_count_i <= head_i - tail_i + N_specs;
+            else 
+                fill_count_i <= head_i - tail_i;
+            end if;
         end if;
     end process;
 end behavioral;
