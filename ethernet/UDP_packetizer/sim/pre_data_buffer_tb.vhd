@@ -95,25 +95,99 @@ end process;
 main : process 
 
 begin 
-    sclr_n <= '0'; wvalid <='0'; rvalid <='0';
+    --------------------------------------------------------------------------------------
+    --  LOAD 2 READ 2
+    --------------------------------------------------------------------------------------
+    sclr_n <= '0'; -- wvalid <='0'; rvalid <='0';
     wready <= '0';
     rready <= '0';
     data_in<= (X"00",X"00",X"00",X"00",X"00");
     wait for 25 ns;
     
-    data_in<= (X"c0",X"ff",X"ee",X"0f",X"f0");
     sclr_n <= '1';
-    wait for 20 ns;
-
+    data_in<= (X"c0",X"ff",X"ee",X"0f",X"f0");
     rready <= '1';
-    wait for 15 ns;
+    wait for 11 ns;
 
     rready <= '0';
-    wready <= '1';
-    data_in<= (X"00",X"00",X"00",X"00",X"00");
-    wait for 10 ns;
+    wait for 11 ns;
+
+    sclr_n <= '1';
+    data_in<= (X"AB",X"BA",X"0A",X"ff",X"A0");
+    rready <= '1';
+    wait for 11 ns;
     
     wready <= '0';
+    rready <= '0';
+    wait for 11 ns;
+
+    wready <= '1';
+    rready <= '0';
+    data_in<= (X"00",X"00",X"00",X"00",X"00");
+    wait for 25 ns;
+
+    wready <= '0';
+    wait for 15 ns;
+    wready <= '1';
+    wait for 15 ns;
+    
+    rready <= '0';
+    wready <= '0';
+    sclr_n <= '0';
+    data_in<= (X"00",X"00",X"00",X"00",X"00");
+
+    --------------------------------------------------------------------------------------
+    --  LOAD 2 READ 2 CLEAR LOAD 2 READ 2
+    --------------------------------------------------------------------------------------
+    sclr_n <= '0'; -- wvalid <='0'; rvalid <='0';
+    wready <= '0';
+    rready <= '0';
+    data_in<= (X"00",X"00",X"00",X"00",X"00");
+    wait for 25 ns;
+    
+    sclr_n <= '1';
+    data_in<= (X"c0",X"ff",X"ee",X"0f",X"f0");
+    rready <= '1';
+    wait for 11 ns;
+
+    rready <= '0';
+    wait for 11 ns;
+
+    sclr_n <= '1';
+    data_in<= (X"AB",X"BA",X"0A",X"ff",X"A0");
+    rready <= '1';
+    wait for 11 ns;
+
+    rready <= '0';
+    wait for 11 ns;
+
+    sclr_n <= '1';
+    data_in<= (X"DE",X"AD",X"BE",X"EF",X"AH");
+    rready <= '1';
+    wait for 11 ns;
+    
+    wready <= '0';
+    rready <= '0';
+    wait for 11 ns;
+    
+    wready <= '0';
+    rready <= '0';
+    wait for 11 ns;
+
+    wready <= '1';
+    rready <= '0';
+    data_in<= (X"00",X"00",X"00",X"00",X"00");
+    wait for 25 ns;
+
+    wready <= '0';
+    wait for 15 ns;
+    wready <= '1';
+    wait for 15 ns;
+    
+    rready <= '0';
+    wready <= '0';
+    sclr_n <= '0';
+    data_in<= (X"00",X"00",X"00",X"00",X"00");
 
     wait;
 end process;
