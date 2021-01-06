@@ -13,16 +13,17 @@ module N_bin_avg_wrapper #(
             parameter BINS = 4
         )
         (
-            input wire clk, arest_n,
+            input wire clk, areset_n,
             input wire fft_valid,
-            input wire [BINS-1:0] [N-1:0] in_data,
+            input wire [N-1:0] in_data,
+            input wire [2:0] N_AVGS_in,
             output logic [BINS-1:0] [N-1:0] out_data
         );
 
     //******************* internal registers ********************
-    logic [BINS-1:0] [SUM_WIDTH-1:0] fft_array;
-    logic [2:0] N_AVGS_in;
-    
+    logic [BINS-1:0] [N-1:0] fft_array;
+    logic avg_valid; 
+
     //**********************************************************
     //          GENERATE PARALLEL AVERAGING MODULES
     //**********************************************************
@@ -36,14 +37,16 @@ module N_bin_avg_wrapper #(
                     .SUM_WIDTH(SUM_WIDTH)
                     ) u_growing_avg
                     (.clk(clk),
-                    .valid(valid),
+                    .valid(avg_valid),
                     .x(fft_array[i]),
                     .N_AVGS_in(N_AVGS_in),
-                    .new_data(),
+                    .new_dat(avg_valid),
                     .y(out_data[i])
                     );
         end
     endgenerate 
+    
+    
     
     //**********************************************************
     //          COLLECT FFT BINS INTO ARRAY
@@ -55,11 +58,11 @@ module N_bin_avg_wrapper #(
         .BINS(BINS)
         ) u_N_bin_collection
         (.clk(clk),
-        .arest_n(arest_n),
+        .areset_n(areset_n),
         .fft_valid(fft_valid),
         .in_data(in_data),
-        .out_data(fft_array),
-        .output_valid(valid)
+        .collect_data(fft_array),
+        .output_valid(avg_valid)
         );
         
 endmodule

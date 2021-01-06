@@ -7,19 +7,20 @@ module n_bin_collection_tb();
 
     localparam BINS = 4;
     localparam N = 16;
-    localparam SUM_WIDTH = 8;
-    logic [BINS-1:0] [SUM_WIDTH-1:0] y;
+    localparam SUM_WIDTH = 128;
+    logic [BINS-1:0] [N-1:0] y;
     logic [N-1:0] in_data;
     logic clk, valid, areset_n;
+    logic [2:0] N_AVGS_in;
 
-    N_bin_collection #(
-	.N(N),
+    N_bin_avg_wrapper
+        #(.N(N),
         .SUM_WIDTH(SUM_WIDTH)
-	)
-        uut(
+        )      uut(
         .clk(clk),
         .areset_n(areset_n),
         .in_data(in_data),
+        .N_AVGS_in(N_AVGS_in),
         .out_data(y),
         .fft_valid(valid)
         );
@@ -30,14 +31,30 @@ module n_bin_collection_tb();
     initial begin
         areset_n = 0;
         valid = 0;
-        #10;
+        N_AVGS_in = 3'd1;
+        #30;
         areset_n = 1;
+        @ (posedge clk);
         valid = 1;
-        for (int i=0; i<1024;i++) begin
+        for (int i=10; i<14;i++) begin
                 in_data=i;
-                @ (negedge clk); 
+                @ (posedge clk); 
                 valid = 0;       
             end
+        
+        valid = 1;
+        for (int i=5; i<9;i++) begin
+                in_data=i;
+                @ (posedge clk); 
+                valid = 0;       
+        end
+
+        valid = 1;
+        for (int i=15; i<19;i++) begin
+                in_data=i;
+                @ (posedge clk); 
+                valid = 0;       
+        end
     
     end
     
