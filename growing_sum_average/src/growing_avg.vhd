@@ -2,16 +2,18 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+-- TODO : CHANGED TO SIGNED
+
 entity growing_avg is 
     generic(         N : integer := 16;
-                N_AVGS : integer := 1;  -- Total Averages = 2^N_AVGS -1
+                --N_AVGS : integer := 8;  -- Total Averages = 2^N_AVGS -1
              SUM_WIDTH : integer := 128  -- Upper limit for possible number of averages (= S_W^2 - N)
     );
     port(
         clk : in std_logic;
       valid : in std_logic;
           x : in std_logic_vector(N-1 downto 0);
-  N_AVGS_in : in std_logic_vector(3-1 downto 0);
+  N_AVGS_in : in std_logic_vector(8-1 downto 0);
     new_dat : out std_logic;     
           y : out std_logic_vector(N-1 downto 0)
     );
