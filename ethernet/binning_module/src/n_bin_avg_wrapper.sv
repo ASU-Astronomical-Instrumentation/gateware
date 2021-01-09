@@ -20,7 +20,7 @@ module N_bin_avg_wrapper #(
             input wire fft_ready,
             input wire [BINS-1:0] [N-1:0] in_data,
             output logic valid_out,
-            output logic [BINS*N/N_out-1:0] [N_out-1:0] out_data,
+            output logic [BINS*N/N_out-1:0] [N_out-1:0] out_data
         );
 
     //******************* internal registers ********************
