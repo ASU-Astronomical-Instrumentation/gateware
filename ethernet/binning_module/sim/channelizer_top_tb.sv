@@ -53,7 +53,7 @@ logic [BINS*N/N_out-1:0] [N_out-1:0] out_data;
 /********************************************
 *           Device Under Test               *
 ********************************************/
-N_bin_avg_wrapper #( 
+channelizer_top #( 
 	.N(N),
 	.N_out(N_out),
 	.SUM_WIDTH(SUM_WIDTH),
