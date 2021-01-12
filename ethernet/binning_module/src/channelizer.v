@@ -9,10 +9,10 @@ module channelizer_top #(
         (
             input wire clk, arest_n,
             input wire fft_ready,
-            input wire [BINS-1:0] [N-1:0] in_data,
+            input wire [N-1:0] in_data,
             input wire [7:0] N_AVGS_in,
             output wire valid,
-            output reg [BINS*N/N_out-1:0] [N_out-1:0] out_data
+            output wire [BINS*N/N_out-1:0] [N_out-1:0] out_data
         );
         
         N_bin_avg_wrapper #(
@@ -24,6 +24,7 @@ module channelizer_top #(
         u0 (
         .clk(clk),
         .arest_n(arest_n),
+        .fft_ready(fft_ready),
         .in_data(in_data),
         .N_AVGS_in(N_AVGS_in),
         .valid(valid),
