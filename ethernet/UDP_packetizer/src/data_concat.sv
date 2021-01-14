@@ -2,12 +2,12 @@
 
 module data_concat #(
     parameter BW =  18, // bit width
-    parameter N_PRL = 4, // number of parallel IQ values
+    parameter N_PRL = 4, // number of parallel IQ values (or Bins)
     parameter BW_out = 8 // output bit width (ethernet input)
 ) (
-    input wire clk, srst_n,
+    input wire clk, arest_n,
     input wire data_ready,
-    output wire data_valid,
+    output logic data_valid,
     input logic [N_PRL-1:0][BW-1:0] x,
     output logic [BW*N_PRL/BW_out-1:0][BW_out-1:0] y 
 );
@@ -15,20 +15,21 @@ module data_concat #(
 logic [BW*N_PRL-1:0] largex;
 integer i;
 
-always_ff @ (posedge clk) begin
-    if(~srst_n) 
+always_ff @ (posedge clk or negedge arest_n) begin
+    if(~arest_n) begin
         y <= 'b0;
         data_valid <= 'b0;
-    else begin
-        if (data_ready == 1)
+    end else begin
+        if (data_ready == 1)begin
             data_valid = 'b1;
             for (i=0; i<N_PRL; i=i+1)
     	        largex[BW*i +: BW] = x[i];
         	foreach (y[j]) 
                 y[j] = largex[BW_out*j +: BW_out];
-        else 
+        end else begin
             y <= 'b0;
             data_valid <= 'b0;
-      end
+	end
+    end
 end
 endmodule
