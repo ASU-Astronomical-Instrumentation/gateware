@@ -1,6 +1,6 @@
 /**********************************************************
-7 October 2020
-1 Jan 2021
+Created : 7 October 2020
+Modified : 1 Jan 2021
 K. Chamberlin R. Stephenson
 Description: bin averaging wrapper 
 ***********************************************************/
@@ -11,7 +11,6 @@ Description: bin averaging wrapper
 module N_bin_avg_wrapper #(
             parameter N = 16,
             parameter N_out = 8,
-            //parameter N_AVGS = 7, // -- Total Averages = 2^N_AVGS
             parameter SUM_WIDTH = 32,
             parameter BINS = 4
         )
@@ -36,7 +35,6 @@ module N_bin_avg_wrapper #(
     //**********************************************************
     N_bin_collection #(
         .N(N),
-        //.N_AVGS(N_AVGS),
         .BINS(BINS)
         ) u_N_bin_collection
         (.clk(clk),
@@ -53,10 +51,9 @@ module N_bin_avg_wrapper #(
     genvar i;
     generate
         for (i = 0; i <BINS;i++) 
-            begin: generate_avg
+            begin: growing_avg_signed
                 growing_avg #(
                     .N(N),
-                    //.N_AVGS(N_AVGS),
                     .SUM_WIDTH(SUM_WIDTH)
                     ) 
                     u_growing_avg (
@@ -87,6 +84,5 @@ module N_bin_avg_wrapper #(
         .data_valid(valid),
         .x(avg_fft_spec),
         .y(out_data)
-    );
-        
+    );     
 endmodule
