@@ -21,7 +21,7 @@ end growing_avg_signed;
 
 architecture behv of growing_avg_signed is 
     signal sum          : signed(SUM_WIDTH-1 downto 0) := (others=>'0'); 
-    signal first_val    : signed(SUM_WIDTH-1 downto 0);
+    signal first_val    : signed(SUM_WIDTH-1 downto 0) := (others=>'0');
     signal adds         : unsigned(SUM_WIDTH-1 downto 0); -- number of additons performed
 begin 
     
@@ -32,18 +32,18 @@ begin
             y <= (others => '0'); -- only output new data when new data is valid   
             if (valid='1') then
                 if (adds = 0) then
-                    sum <=  first_val + signed((SUM_WIDTH-1 downto x'length => '0') & x);
+                    sum <=  first_val + resize(signed(x),SUM_WIDTH);
                     adds <= (SUM_WIDTH-1 downto 1 => '0') & '1'; -- (0 => '1', others =>'0')
                 elsif (adds < 2**(to_integer(unsigned(N_AVGS_in))) -1) then -- continue accumulation until max average # is reached
-                    sum <= sum + signed((SUM_WIDTH-1 downto x'length => '0') & x); -- sum = sum + x
+                    sum <= sum + resize(signed(x),SUM_WIDTH); -- sum = sum + x
                     adds <= adds + 1;   
                 else    
                     adds <= (others => '0');
-                    first_val <= signed((SUM_WIDTH-1 downto x'length => '0') & x);
+                    first_val <= resize(signed(x),SUM_WIDTH);
                     new_dat <= '1';
                     -- output --
                     --y <= std_logic_vector( sum(N+to_integer(unsigned(N_AVGS_in))-1 downto to_integer(unsigned(N_AVGS_in))) ); -- unsgined divide and slice
-                    y <= std_logic_vector(resize(shift_right(sum, N),N));
+                    y <= std_logic_vector(resize(shift_right(sum, to_integer(unsigned(N_AVGS_in))),N));
                 end if;
             end if;
         end if;   

@@ -22,6 +22,7 @@ module gsa_signed_tb();
         
     initial begin
         // init
+        x = 16'b0;
         N_AVGS_in = 1;
         valid=0;
         #20 
@@ -63,7 +64,7 @@ module gsa_signed_tb();
 		@(posedge clk);
 		@(posedge clk);
 		valid = 1;
-                x=i; 
+                x=4*i-512; 
 		@(posedge clk); 
             end
         end
