@@ -12,21 +12,26 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity UBC is
     generic (N : integer := 13);
-    Port (  clk, clr, enb : in STD_LOGIC; 
+    Port (  clk, clr, enb, start: in STD_LOGIC; 
             Q : out STD_LOGIC_VECTOR(N-1 downto 0)
           );
 end UBC;
 
-architecture Behavioral of UBC is
+architecture behavioral of UBC is
 begin
     process (clk,clr,enb) 
         variable val : unsigned(N-1 downto 0);
+        variable started : std_logic;
     begin 
         if (clr='1') then 
             val := (others => '0');
+            started := '0';
         elsif (rising_edge(clk)) then
             if (enb='1') then 
-                val := val + 1;
+                if start='1' or started='1' then -- start condition
+                    started := '1';
+                    val := val + 1;
+                end if;
             end if;
         end if;
         Q <= std_logic_vector(val);
